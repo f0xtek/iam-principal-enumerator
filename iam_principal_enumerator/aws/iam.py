@@ -29,7 +29,7 @@ def is_valid_arn(arn: str) -> bool:
     """
     return (
         re.fullmatch(
-            r"^(?:\d{12}|(arn:(aws|aws-us-gov|aws-cn):iam::\d{12}(?:|:(?:root|user\/[0-9A-Za-z\+\.@_,-]{1,64}))))$",
+            r"^(?:\d{12}|(arn:(aws|aws-us-gov|aws-cn):iam::\d{12}(:(root|user\/[0-9A-Za-z\+\.@_,-]{1,64}))))$",
             arn,
         )
         is not None
