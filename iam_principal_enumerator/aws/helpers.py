@@ -1,3 +1,11 @@
+"""
+Helper functions for generating ARNs and validating IAM principals.
+
+This module provides functions to validate AWS account IDs, generate ARNs for IAM roles and users
+based on principal names and to validate these ARNs using the AWS IAM client.
+"""
+
+import re
 import sys
 from typing import List, Optional
 
@@ -35,3 +43,13 @@ def valid_principal(client: IAMClient, role_name: str, arn: str) -> Optional[str
     """
     logger.debug(f"Testing ARN: {arn}")
     return arn if is_valid_principal(client, role_name, arn) else None
+
+
+def is_valid_aws_account_id(account_id: str) -> bool:
+    """
+    Validate that the AWS account ID is a 12-digit number.
+
+    :param account_id: AWS account ID to validate
+    :return: True if valid, False otherwise
+    """
+    return re.fullmatch(r"\d{12}", str(account_id)) is not None

@@ -1,3 +1,11 @@
+"""
+IAM utility functions.
+
+This module provides utility functions for working with AWS IAM, including
+validating ARNs, building ARNs, and creating IAM roles
+and trust policies.
+"""
+
 import json
 import re
 import sys
@@ -8,16 +16,6 @@ from mypy_boto3_iam import IAMClient
 
 logger.remove()
 logger.add(sys.stderr, level="INFO")
-
-
-def is_valid_aws_account_id(account_id: str) -> bool:
-    """
-    Validate that the AWS account ID is a 12-digit number.
-
-    :param account_id: AWS account ID to validate
-    :return: True if valid, False otherwise
-    """
-    return re.fullmatch(r"\d{12}", str(account_id)) is not None
 
 
 def is_valid_arn(arn: str) -> bool:

@@ -1,3 +1,10 @@
+"""
+Helper functions for various utility operations.
+
+This module provides utility functions for generating random strings,
+validating file existence, and reading lines from a file.
+"""
+
 import random
 import string
 from pathlib import Path
