@@ -25,9 +25,10 @@ def test_get_current_account_id_botocore_error():
 def test_get_current_account_id_client_error():
     client = Mock(spec=STSClient)
     client.get_caller_identity.side_effect = ClientError(
-        {"Error": {"Code": "ClientError", "Message": "An error occurred"}}, "GetCallerIdentity"
+        {"Error": {"Code": "ClientError", "Message": "An error occurred"}},
+        "GetCallerIdentity",
     )
-    
+
     with pytest.raises(ClientError):
         get_current_account_id(client)
     client.get_caller_identity.assert_called_once()

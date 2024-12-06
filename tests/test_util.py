@@ -2,7 +2,12 @@ import pytest
 import string
 from pathlib import Path
 from unittest.mock import mock_open, patch
-from iam_principal_enumerator.util import generate_random_string, is_valid_file, read_lines_from_file
+from iam_principal_enumerator.util import (
+    generate_random_string,
+    is_valid_file,
+    read_lines_from_file,
+)
+
 
 def test_generate_random_string():
     length = 8

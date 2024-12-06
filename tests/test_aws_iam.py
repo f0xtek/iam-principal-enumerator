@@ -2,7 +2,11 @@ import json
 
 import pytest
 
-from iam_principal_enumerator.aws.iam import is_valid_arn, build_arn, create_role_trust_policy
+from iam_principal_enumerator.aws.iam import (
+    is_valid_arn,
+    build_arn,
+    create_role_trust_policy,
+)
 
 
 def test_is_valid_arn():

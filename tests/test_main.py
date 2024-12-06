@@ -22,15 +22,26 @@ def test_search_valid_principals():
     # Mock the valid_principal function to return the ARN if valid
     with patch(
         "iam_principal_enumerator.aws.helpers.valid_principal",
-        side_effect=lambda c, r, a: a if a.endswith("-valid") else None
+        side_effect=lambda c, r, a: a if a.endswith("-valid") else None,
     ):
-        with patch("iam_principal_enumerator.aws.helpers.generate_test_arns", return_value=[
-            "arn:aws:iam::123456789012:role/principal-valid",
-            "arn:aws:iam::123456789012:role/principal-invalid",
-        ]):
+        with patch(
+            "iam_principal_enumerator.aws.helpers.generate_test_arns",
+            return_value=[
+                "arn:aws:iam::123456789012:role/principal-valid",
+                "arn:aws:iam::123456789012:role/principal-invalid",
+            ],
+        ):
             with patch(
                 "concurrent.futures.ThreadPoolExecutor.__enter__",
-                return_value=Mock(map=Mock(return_value=["arn:aws:iam::123456789012:role/principal-valid"]))
+                return_value=Mock(
+                    map=Mock(
+                        return_value=["arn:aws:iam::123456789012:role/principal-valid"]
+                    )
+                ),
             ):
-                valid_principals = search_valid_principals(client, target_account_id, principal_list, role_name)
-                assert valid_principals == ["arn:aws:iam::123456789012:role/principal-valid"]
+                valid_principals = search_valid_principals(
+                    client, target_account_id, principal_list, role_name
+                )
+                assert valid_principals == [
+                    "arn:aws:iam::123456789012:role/principal-valid"
+                ]

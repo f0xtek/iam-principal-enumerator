@@ -20,10 +20,13 @@ def test_principal_valid():
     client = Mock(spec=IAMClient)
     role_name = "test-role"
     arn = "arn:aws:iam::123456789012:role/test-role"
-    
+
     # Mock the is_valid_principal function to return True
     with pytest.MonkeyPatch.context() as mp:
-        mp.setattr("iam_principal_enumerator.aws.helpers.is_valid_principal", lambda c, r, a: True)
+        mp.setattr(
+            "iam_principal_enumerator.aws.helpers.is_valid_principal",
+            lambda c, r, a: True,
+        )
         assert valid_principal(client, role_name, arn) == arn
 
 
@@ -31,8 +34,11 @@ def test_principal_invalid():
     client = Mock(spec=IAMClient)
     role_name = "test-role"
     arn = "arn:aws:iam::123456789012:role/test-role"
-    
+
     # Mock the is_valid_principal function to return False
     with pytest.MonkeyPatch.context() as mp:
-        mp.setattr("iam_principal_enumerator.aws.helpers.is_valid_principal", lambda c, r, a: False)
+        mp.setattr(
+            "iam_principal_enumerator.aws.helpers.is_valid_principal",
+            lambda c, r, a: False,
+        )
         assert valid_principal(client, role_name, arn) is None
