@@ -10,6 +10,7 @@ repository = "https://github.com/f0xtek/iam-principal-enumerator"
 [tool.poetry.dependencies]
 python = "^3.11"
 boto3 = "^1.35.76"
+loguru = "^0.7.2"
 
 [tool.poetry.scripts]
 iam-principal-enumerator = "iam_principal_enumerator.main:main"
