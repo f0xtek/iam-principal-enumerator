@@ -32,7 +32,7 @@ def read_lines_from_file(filename: Path) -> Generator[str, Any, None]:
     :param filename: Path to the file
     :yield: Lines from the file, stripped of whitespace
     """
-    with filename.open("r") as f:
+    with open(filename, "r") as f:
         for line in f:
             yield line.strip()
 
