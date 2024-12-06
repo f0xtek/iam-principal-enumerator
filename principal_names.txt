@@ -1,0 +1,17 @@
+admin
+administrator
+deploy
+deploy-dev
+deployer
+deployer-dev
+deployer-prod
+deploy-prod
+dev
+dev
+dev-deploy
+developer
+gitlab-ci
+gitlab-runner
+it-admin
+prod
+prod-deploy

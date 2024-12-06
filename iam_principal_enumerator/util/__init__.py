@@ -1,5 +1,7 @@
 import random
 import string
+from pathlib import Path
+from typing import Any, Generator
 
 
 def generate_random_string(length=8):
@@ -11,3 +13,25 @@ def generate_random_string(length=8):
     """
     characters = string.ascii_letters + string.digits
     return "".join(random.choice(characters) for _ in range(length))
+
+
+def is_valid_file(filename: Path):
+    """
+    Check if the given file exists.
+
+    :param filename: Path to the file
+    :return: True if file exists, False otherwise
+    """
+    return filename.is_file()
+
+
+def read_lines_from_file(filename: Path) -> Generator[str, Any, None]:
+    """
+    Read lines from a file.
+
+    :param filename: Path to the file
+    :yield: Lines from the file, stripped of whitespace
+    """
+    with open(filename, "r") as f:
+        for line in f:
+            yield line.strip()
