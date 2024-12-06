@@ -1,7 +1,7 @@
 import random
 import string
 from pathlib import Path
-from typing import Any, Generator
+from typing import Any, Generator, List
 
 
 def generate_random_string(length=8):
@@ -32,6 +32,20 @@ def read_lines_from_file(filename: Path) -> Generator[str, Any, None]:
     :param filename: Path to the file
     :yield: Lines from the file, stripped of whitespace
     """
-    with open(filename, "r") as f:
+    with filename.open("r") as f:
         for line in f:
             yield line.strip()
+
+
+def print_results(valid_principals: List[str]) -> None:
+    """
+    Print the results of valid principals.
+
+    :param valid_principals: List of valid principal ARNs
+    :return: None
+    """
+    print("\n" + "*" * 40)
+    print(f"Found {len(valid_principals)} valid principals:")
+    print("*" * 40 + "\n")
+    print("\n".join(valid_principals))
+    print()

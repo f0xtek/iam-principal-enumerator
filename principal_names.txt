@@ -1,5 +1,6 @@
 admin
 administrator
+batch
 deploy
 deploy-dev
 deployer
