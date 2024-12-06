@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "iam-principal-enumerator"
+version = "0.1.0"
+license = "MIT"
+description = "CLI application that performs unauthenticated IAM principal enumeration against a target AWS account."
+authors = ["Luke Anderson <landerson61@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/f0xtek/iam-principal-enumerator"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+boto3 = "^1.35.76"
+
+[tool.poetry.scripts]
+iam-principal-enumerator = "iam_principal_enumerator.main:main"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
