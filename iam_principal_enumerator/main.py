@@ -18,7 +18,7 @@ from loguru import logger
 import boto3
 from mypy_boto3_iam import IAMClient
 
-from .aws.iam import (
+from iam_principal_enumerator.aws.iam import (
     build_arn,
     create_iam_role,
     create_role_trust_policy,
@@ -26,9 +26,9 @@ from .aws.iam import (
     is_valid_arn,
     is_valid_aws_account_id,
 )
-from .aws.sts import get_current_account_id
-from .aws.helpers import generate_test_arns, test_principal
-from .util import (
+from iam_principal_enumerator.aws.sts import get_current_account_id
+from iam_principal_enumerator.aws.helpers import generate_test_arns, valid_principal
+from iam_principal_enumerator.util import (
     generate_random_string,
     is_valid_file,
     read_lines_from_file,
@@ -75,7 +75,7 @@ def search_valid_principals(
             filter(
                 None,
                 executor.map(
-                    lambda arn: test_principal(
+                    lambda arn: valid_principal(
                         client=client, role_name=role_name, arn=arn
                     ),
                     generate_test_arns(target_account_id, principal_list),
