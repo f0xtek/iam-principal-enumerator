@@ -15,6 +15,9 @@ boto3 = "^1.35.76"
 iam-principal-enumerator = "iam_principal_enumerator.main:main"
 
 
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
