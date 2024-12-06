@@ -10,6 +10,7 @@ Dependencies:
 """
 
 from argparse import ArgumentParser
+from pathlib import Path
 import sys
 
 from loguru import logger
@@ -24,7 +25,7 @@ from .aws.iam import (
     is_valid_aws_account_id,
 )
 from .aws.sts import get_current_account_id
-from .util import generate_random_string
+from .util import generate_random_string, is_valid_file, read_lines_from_file
 
 
 def parse_args():
@@ -43,6 +44,13 @@ def parse_args():
         default="IAMEnum",
         help="The name of the IAM role used for enumeration. "
         "The role name will be suffixed with an 8-character random string.",
+    )
+    parser.add_argument(
+        "-w",
+        "--wordlist",
+        type=str,
+        default="./principal_names.txt",
+        help="Path to a wordlist to use when enumerating IAM principal names.",
     )
     return parser.parse_args()
 
@@ -72,6 +80,15 @@ def main():
         delete_iam_role(client=iam_client, role_name=role_name)
     else:
         print(f"Invalid arn: {my_account_principal_arn}")
+        sys.exit(1)
+
+    wordlist_file = Path(args.wordlist)
+    if not is_valid_file(wordlist_file):
+        logger.error(f"Invalid wordlist file: {wordlist_file}")
+        sys.exit(1)
+
+    principal_list = list(read_lines_from_file(wordlist_file))
+    logger.debug(principal_list)
 
 
 if __name__ == "__main__":
