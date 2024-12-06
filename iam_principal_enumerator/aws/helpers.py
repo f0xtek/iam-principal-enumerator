@@ -24,7 +24,7 @@ def generate_test_arns(account_id: str, principals: List[str]) -> List[str]:
     ]
 
 
-def test_principal(client: IAMClient, role_name: str, arn: str) -> Optional[str]:
+def valid_principal(client: IAMClient, role_name: str, arn: str) -> Optional[str]:
     """
     Test a single ARN for validity.
 

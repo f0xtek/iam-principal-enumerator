@@ -27,7 +27,7 @@ from .aws.iam import (
     is_valid_aws_account_id,
 )
 from .aws.sts import get_current_account_id
-from .aws.helpers import generate_test_arns, test_principal
+from .aws.helpers import generate_test_arns, valid_principal
 from .util import (
     generate_random_string,
     is_valid_file,
@@ -75,7 +75,7 @@ def search_valid_principals(
             filter(
                 None,
                 executor.map(
-                    lambda arn: test_principal(
+                    lambda arn: valid_principal(
                         client=client, role_name=role_name, arn=arn
                     ),
                     generate_test_arns(target_account_id, principal_list),

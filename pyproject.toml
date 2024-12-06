@@ -23,6 +23,7 @@ mypy-boto3-sts = "^1.35.61"
 mypy-boto3-iam = "^1.35.61"
 pylint = "^3.3.2"
 mypy = "^1.13.0"
+pytest = "^8.3.4"
 
 [build-system]
 requires = ["poetry-core"]
