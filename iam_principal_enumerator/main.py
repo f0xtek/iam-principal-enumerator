@@ -9,12 +9,14 @@ Dependencies:
 - boto3
 """
 
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from pathlib import Path
+import concurrent.futures
 import sys
 
 from loguru import logger
 import boto3
+from mypy_boto3_iam import IAMClient
 
 from .aws.iam import (
     build_arn,
@@ -25,10 +27,19 @@ from .aws.iam import (
     is_valid_aws_account_id,
 )
 from .aws.sts import get_current_account_id
-from .util import generate_random_string, is_valid_file, read_lines_from_file
+from .aws.helpers import generate_test_arns, test_principal
+from .util import (
+    generate_random_string,
+    is_valid_file,
+    read_lines_from_file,
+    print_results,
+)
+
+logger.remove()
+logger.add(sys.stderr, level="INFO")
 
 
-def parse_args():
+def parse_args() -> Namespace:
     """
     Parse command-line arguments.
 
@@ -37,6 +48,7 @@ def parse_args():
     parser = ArgumentParser(
         description="Enumerate valid IAM principals in an AWS account."
     )
+    parser.add_argument("account_id", type=int, help="The target AWS account ID")
     parser.add_argument(
         "-r",
         "--enum-role-name",
@@ -55,31 +67,63 @@ def parse_args():
     return parser.parse_args()
 
 
-def main():
+def search_valid_principals(
+    client: IAMClient, target_account_id: str, principal_list: list[str], role_name: str
+) -> list[str]:
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        return list(
+            filter(
+                None,
+                executor.map(
+                    lambda arn: test_principal(
+                        client=client, role_name=role_name, arn=arn
+                    ),
+                    generate_test_arns(target_account_id, principal_list),
+                ),
+            )
+        )
+
+
+def main() -> None:
+    """
+    Main function to enumerate valid IAM principals in an AWS account.
+
+    - Parses arguments
+    - Validates inputs
+    - Creates an IAM role
+    - Tests principal ARNs
+    - Deletes the IAM role
+    """
     logger.info("IAM Principal Enumerator")
     args = parse_args()
 
     iam_client = boto3.client("iam")
     sts_client = boto3.client("sts")
 
+    target_account_id = args.account_id
     my_account_id = get_current_account_id(client=sts_client)
+
     if not is_valid_aws_account_id(account_id=my_account_id):
         print(f"Invalid source account ID: {my_account_id}")
         sys.exit(1)
 
     my_account_principal_arn = build_arn(account_id=my_account_id, principal="root")
 
-    if is_valid_arn(arn=my_account_principal_arn):
-        initial_trust_policy = create_role_trust_policy(
-            principal_arn=my_account_principal_arn
-        )
-        role_name = f"{args.enum_role_name}-{generate_random_string()}"
-        role_arn = create_iam_role(
+    if not is_valid_arn(arn=my_account_principal_arn):
+        print(f"Invalid arn: {my_account_principal_arn}")
+        sys.exit(1)
+
+    initial_trust_policy = create_role_trust_policy(
+        principal_arn=my_account_principal_arn
+    )
+    role_name = f"{args.enum_role_name}-{generate_random_string()}"
+
+    try:
+        create_iam_role(
             client=iam_client, role_name=role_name, trust_policy=initial_trust_policy
         )
-        delete_iam_role(client=iam_client, role_name=role_name)
-    else:
-        print(f"Invalid arn: {my_account_principal_arn}")
+    except Exception as e:
+        logger.error(f"Error creating IAM role: {e}")
         sys.exit(1)
 
     wordlist_file = Path(args.wordlist)
@@ -88,7 +132,19 @@ def main():
         sys.exit(1)
 
     principal_list = list(read_lines_from_file(wordlist_file))
-    logger.debug(principal_list)
+
+    logger.info("Searching for valid IAM principals...")
+    valid_principals = search_valid_principals(
+        iam_client, target_account_id, principal_list, role_name
+    )
+
+    logger.info(f"Deleting IAM role: {role_name}")
+    try:
+        delete_iam_role(client=iam_client, role_name=role_name)
+    except Exception as e:
+        logger.error(f"Error deleting IAM role: {e}")
+
+    print_results(valid_principals)
 
 
 if __name__ == "__main__":
