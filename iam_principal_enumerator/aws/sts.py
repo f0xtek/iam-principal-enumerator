@@ -1,3 +1,10 @@
+"""
+STS utility functions.
+
+This module provides utility functions for working with AWS STS, including
+retrieving the current AWS account ID.
+"""
+
 import sys
 
 from loguru import logger

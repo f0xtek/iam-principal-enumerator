@@ -1,12 +1,9 @@
 """
-IAM Principal Enumeration Script
+Main module for enumerating valid IAM principals in an AWS account.
 
-This script is used to enumerate valid IAM principals in an AWS account.
-It creates a temporary IAM role, tests a list of potential principal ARNs, 
-and cleans up the role afterward. The results of valid principals are printed.
-
-Dependencies:
-- boto3
+This module provides the main functionality for enumerating valid IAM principals
+in a specified AWS account. It includes functions for parsing command-line arguments,
+validating inputs, creating and deleting IAM roles, and testing principal ARNs.
 """
 
 from argparse import ArgumentParser, Namespace
@@ -24,10 +21,13 @@ from iam_principal_enumerator.aws.iam import (
     create_role_trust_policy,
     delete_iam_role,
     is_valid_arn,
-    is_valid_aws_account_id,
 )
 from iam_principal_enumerator.aws.sts import get_current_account_id
-from iam_principal_enumerator.aws.helpers import generate_test_arns, valid_principal
+from iam_principal_enumerator.aws.helpers import (
+    is_valid_aws_account_id,
+    generate_test_arns,
+    valid_principal,
+)
 from iam_principal_enumerator.util import (
     generate_random_string,
     is_valid_file,
