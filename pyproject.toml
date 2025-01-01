@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "iam-principal-enumerator"
-version = "0.1.0"
+version = "0.1.1"
 license = "MIT"
 description = "CLI application that performs unauthenticated IAM principal enumeration against a target AWS account."
 authors = ["Luke Anderson <landerson61@gmail.com>"]
