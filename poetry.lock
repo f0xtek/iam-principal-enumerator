@@ -715,17 +715,17 @@ typing-extensions = {version = ">=4.1.0", markers = "python_version < \"3.12\""}
 
 [[package]]
 name = "mypy-boto3-sts"
-version = "1.35.61"
-description = "Type annotations for boto3.STS 1.35.61 service generated with mypy-boto3-builder 8.2.1"
+version = "1.35.97"
+description = "Type annotations for boto3 STS 1.35.97 service generated with mypy-boto3-builder 8.8.0"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mypy_boto3_sts-1.35.61-py3-none-any.whl", hash = "sha256:cf8e7b49396e4ad3a5709d51034a4925afcf14f01fa42e1ae222d3b09f111054"},
-    {file = "mypy_boto3_sts-1.35.61.tar.gz", hash = "sha256:37465ba1d3202cd39b508c346955f9a5a2597071300791a569cbbc2ad7ab4dd1"},
+    {file = "mypy_boto3_sts-1.35.97-py3-none-any.whl", hash = "sha256:50c32613aa9e8d33e5df922392e32daed6fcd0e4d4cc8d43f5948c69be1c9e1e"},
+    {file = "mypy_boto3_sts-1.35.97.tar.gz", hash = "sha256:6df698f6a400a82ebcc2f10adb43557f66278467200e0f75588e7de3e4a1622d"},
 ]
 
 [package.dependencies]
-typing-extensions = {version = ">=4.1.0", markers = "python_version < \"3.12\""}
+typing-extensions = {version = "*", markers = "python_version < \"3.12\""}
 
 [[package]]
 name = "mypy-extensions"
