@@ -17,7 +17,7 @@ iam-principal-enumerator = "iam_principal_enumerator.main:main"
 
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.10.0"
+black = ">=24.10,<26.0"
 boto3-stubs = {extras = ["iam"], version = "^1.35.76"}
 mypy-boto3-sts = "^1.35.61"
 mypy-boto3-iam = "^1.35.61"
