@@ -836,14 +836,14 @@ reports = ["lxml"]
 
 [[package]]
 name = "mypy-boto3-iam"
-version = "1.42.4"
-description = "Type annotations for boto3 IAM 1.42.4 service generated with mypy-boto3-builder 8.12.0"
+version = "1.42.64"
+description = "Type annotations for boto3 IAM 1.42.64 service generated with mypy-boto3-builder 8.12.0"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "mypy_boto3_iam-1.42.4-py3-none-any.whl", hash = "sha256:670ffeff6dee7eaa7f6f77ddfee1eeec2ab968b381efeddd3ccfe6f9971ac198"},
-    {file = "mypy_boto3_iam-1.42.4.tar.gz", hash = "sha256:41b17d55f44d31ca5ef0389579505e65f6e79fae0423b98ff2581e83f6284bc5"},
+    {file = "mypy_boto3_iam-1.42.64-py3-none-any.whl", hash = "sha256:d138d8f41e719d9bbfc4aa3d2095030202f0c0642b37d038d21a153814198582"},
+    {file = "mypy_boto3_iam-1.42.64.tar.gz", hash = "sha256:d01308ad4a197f8c465aed8002502793802f10fa0a01323b5efda4e2fbd937a5"},
 ]
 
 [package.dependencies]
