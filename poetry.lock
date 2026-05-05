@@ -868,14 +868,14 @@ typing-extensions = {version = "*", markers = "python_version < \"3.12\""}
 
 [[package]]
 name = "mypy-boto3-sts"
-version = "1.42.91"
-description = "Type annotations for boto3 STS 1.42.91 service generated with mypy-boto3-builder 8.12.0"
+version = "1.43.0"
+description = "Type annotations for boto3 STS 1.43.0 service generated with mypy-boto3-builder 8.12.0"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "mypy_boto3_sts-1.42.91-py3-none-any.whl", hash = "sha256:4e141e7d1f14a4a2f8a83462ffb33b11a271fb4d351a5591d73469e742df989f"},
-    {file = "mypy_boto3_sts-1.42.91.tar.gz", hash = "sha256:f22da0a91c193441924aa5e24c574abe7ca6cb2131a90caeb74256fa14a06878"},
+    {file = "mypy_boto3_sts-1.43.0-py3-none-any.whl", hash = "sha256:a7523d0a5c67af3ff814eaa93458087fcf6d389402c50f4bd3c1e82a5ebdd94a"},
+    {file = "mypy_boto3_sts-1.43.0.tar.gz", hash = "sha256:7c38cffd0f07ff226d0b8016610bf5fa19bd6fa2a75a04cfdeecba2cabea8a4c"},
 ]
 
 [package.dependencies]
